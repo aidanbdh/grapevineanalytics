@@ -1,0 +1,23 @@
+{
+  "name": "grapevineanalytics",
+  "version": "1.0.0",
+  "description": "A website for website owners who want to view user traffic information.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidanbdh/grapevineanalytics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aidanbdh/grapevineanalytics/issues"
+  },
+  "homepage": "https://github.com/aidanbdh/grapevineanalytics#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
