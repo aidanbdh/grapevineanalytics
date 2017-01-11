@@ -4,7 +4,8 @@
   "description": "A website for website owners who want to view user traffic information.",
   "main": "main.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,12 @@
   },
   "homepage": "https://github.com/aidanbdh/grapevineanalytics#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
