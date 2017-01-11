@@ -1,0 +1,14 @@
+.container {
+
+}
+
+#create-profile div {
+  width: 480px;
+  margin: auto;
+  margin-top: 18px;
+  text-align: center;
+}
+
+#email {
+  width: 75%;
+}
