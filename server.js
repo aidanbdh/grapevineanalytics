@@ -20,7 +20,10 @@ app.get('/', (req, res, next) => {
 app.post('/new_profile', (req, res) => {
   const addProfile = knex('profiles').insert(req.body);
   addProfile
-    .catch(err => console.log(`Error: ${err}`));
+    .catch(err => {
+      console.log(`Error: ${err}`);
+      return;
+    });
   res.sendStatus(201);
 });
 
