@@ -18,13 +18,26 @@ app.get('/', (req, res, next) => {
 })
 
 app.post('/new_profile', (req, res) => {
+  //Validate username
+  const response = res;
   const addProfile = knex('profiles').insert(req.body);
-  addProfile
-    .catch(err => {
-      console.log(`Error: ${err}`);
-      return;
+  knex('profiles')
+    .where({ username: req.body.username })
+    .returning('id')
+    .then(res => {
+      if(res[0]) {
+        response.sendStatus(409);
+      } else {
+        addProfile
+          .then(() => {
+            response.sendStatus(201);
+          })
+          .catch(err => {
+            console.log(`Error: ${err}`);
+            response.sendStatus(500);
+          });
+      }
     });
-  res.sendStatus(201);
 });
 
 app.listen(3000, () => {

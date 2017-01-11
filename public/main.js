@@ -25,6 +25,19 @@ document.getElementById('create-profile').addEventListener('submit' , () => {
     method: 'POST',
     body: JSON.stringify(new CreateProfile())
   })
-    .then(() => { window.alert('Profile Created!') })
+    .then((res) => {
+      console.log(res.status);
+      switch(res.status) {
+        case 201:
+          window.alert('Profile Created!');
+          break;
+        case 409:
+          window.alert('That username is already in use. Please try again.');
+          break;
+        case 500:
+          window.alert('Server Error.');
+          break;
+      };
+    })
     .catch(err => { window.alert('Error creating profile!')});
 }, true);

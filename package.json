@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "drop": "psql -d grapevineanalytics -f create-tables.sql"
   },
   "repository": {
     "type": "git",
