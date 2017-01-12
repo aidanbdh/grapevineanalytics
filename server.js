@@ -18,11 +18,11 @@ app.get('/', (req, res, next) => {
 })
 
 app.post('/new_profile', (req, res) => {
-  //Validate username
+  //Validate email
   const response = res;
   const addProfile = knex('profiles').insert(req.body);
   knex('profiles')
-    .where({ username: req.body.username })
+    .where({ email: req.body.email })
     .returning('id')
     .then(res => {
       if(res[0]) {
