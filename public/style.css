@@ -1,12 +1,26 @@
 .container {
-
+  height: 100%;
 }
 
-#create-profile div {
+form {
+  margin-top: 50%;
+  transform: translateY(-100%);
+}
+
+#create-profile div,
+#login div {
   width: 480px;
   margin: auto;
   margin-top: 18px;
   text-align: center;
+}
+
+#container-login {
+  display: block;
+}
+
+#container-create-profile {
+  display: none;
 }
 
 #email {

@@ -13,13 +13,25 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next) => {
-  res.send('index.html');
+  res.send('/public');
   next();
 })
 
+app.post('/login', (req, res) => {
+  var response = res;
+  knex('profiles')
+    .where({ username: req.body.username, password: req.body.password})
+    .then(res => {
+      if(res[0]) {
+        response.sendStatus(200);
+      } else {
+        response.sendStatus(409);
+      };
+    });
+});
+
 app.post('/new_profile', (req, res) => {
-  //Validate username
-  const response = res;
+  var response = res;
   const addProfile = knex('profiles').insert(req.body);
   knex('profiles')
     .where({ username: req.body.username })
@@ -36,7 +48,7 @@ app.post('/new_profile', (req, res) => {
             console.log(`Error: ${err}`);
             response.sendStatus(500);
           });
-      }
+      };
     });
 });
 
