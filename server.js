@@ -20,7 +20,7 @@ app.get('/', (req, res, next) => {
 app.post('/login', (req, res) => {
   var response = res;
   knex('profiles')
-    .where({ username: req.body.username, password: req.body.password})
+    .where({ email: req.body.email })
     .then(res => {
       if(res[0]) {
         response.sendStatus(200);
