@@ -1,5 +1,6 @@
 .container {
   height: 100%;
+  display: none;
 }
 
 form {
@@ -19,10 +20,17 @@ form {
   display: block;
 }
 
-#container-create-profile {
-  display: none;
+#email,
+#login-email {
+  width: 75%;
 }
 
-#email {
-  width: 75%;
+#header h1 {
+  display: inline-block;
+  transform: translateY(-75%);
+}
+
+#header span {
+  display: inline-block;
+  float: right;
 }

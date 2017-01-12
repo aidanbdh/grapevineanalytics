@@ -20,7 +20,14 @@ document.getElementById('login').addEventListener('submit', () => {
           window.alert('Your email did not match any profiles. Please try again or create a new profile.');
           break;
         case 200:
-          switchView('login', 'create-profile');
+          res.json()
+            .then(res => {
+              let rememberMe = confirm('Would you like to stay logged in?');
+              if(rememberMe) {
+                localStorage.setItem('email', res.email)
+              }
+            });
+          switchView('login', 'home');
           break;
       };
     })
