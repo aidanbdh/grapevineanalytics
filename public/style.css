@@ -23,6 +23,17 @@ form {
   display: none;
 }
 
-#email {
+#email,
+#login-email {
   width: 75%;
+}
+
+#header h1 {
+  display: inline-block;
+  transform: translateY(-75%);
+}
+
+#header span {
+  display: inline-block;
+  float: right;
 }
