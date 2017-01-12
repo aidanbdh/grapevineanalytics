@@ -1,10 +1,7 @@
-const loginForm = document.querySelectorAll('#login div label input');
-const loginUsername = loginForm[0];
-const loginPassword = loginForm[1];
+const loginEmail = document.getElementById('login-email');
 
 function Login(){
-  this.username = loginUsername.value;
-  this.password = loginPassword.value;
+  this.email = loginEmail.value;
 }
 
 document.getElementById('login').addEventListener('submit', () => {
@@ -20,7 +17,7 @@ document.getElementById('login').addEventListener('submit', () => {
     .then(res => {
       switch(res.status) {
         case 409:
-          window.alert('Your username or password was incorrect. Please try again');
+          window.alert('Your email did not match any profiles. Please try again or create a new profile.');
           break;
         case 200:
           switchView('login', 'create-profile');
