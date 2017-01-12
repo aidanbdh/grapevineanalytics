@@ -31,10 +31,11 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/new_profile', (req, res) => {
-  var response = res;
+  //Validate email
+  const response = res;
   const addProfile = knex('profiles').insert(req.body);
   knex('profiles')
-    .where({ username: req.body.username })
+    .where({ email: req.body.email })
     .returning('id')
     .then(res => {
       if(res[0]) {
