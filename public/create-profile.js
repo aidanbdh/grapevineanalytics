@@ -23,6 +23,7 @@ document.getElementById('create-profile').addEventListener('submit', () => {
       switch(res.status) {
         case 201:
           window.alert('Profile Created!');
+          switchView('create-profile', 'home');
           break;
         case 409:
           window.alert('That email is already in use. Please try again.');

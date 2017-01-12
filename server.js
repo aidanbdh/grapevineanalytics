@@ -18,38 +18,50 @@ app.get('/', (req, res, next) => {
 })
 
 app.post('/login', (req, res) => {
-  var response = res;
   knex('profiles')
     .where({ email: req.body.email })
-    .then(res => {
-      if(res[0]) {
-        response.sendStatus(200);
+    .then(response => {
+      if(response[0]) {
+        res.status(200).send(response[0]);
       } else {
-        response.sendStatus(409);
+        res.sendStatus(409);
       };
     });
 });
 
 app.post('/new_profile', (req, res) => {
   //Validate email
-  const response = res;
   const addProfile = knex('profiles').insert(req.body);
   knex('profiles')
     .where({ email: req.body.email })
     .returning('id')
-    .then(res => {
-      if(res[0]) {
-        response.sendStatus(409);
+    .then(response => {
+      if(response[0]) {
+        res.sendStatus(409);
       } else {
         addProfile
           .then(() => {
-            response.sendStatus(201);
+            res.sendStatus(201);
+            res.send(response[0]);
           })
           .catch(err => {
             console.log(`Error: ${err}`);
-            response.sendStatus(500);
+            res.sendStatus(500);
           });
       };
+    });
+});
+
+app.post('/find', (req,res) => {
+  knex('profiles')
+    .where(req.body)
+    .then(response => {
+      if(response[0]) {
+        res.status(200).send(response[0]);
+      };
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`);
     });
 });
 
