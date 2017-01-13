@@ -4,7 +4,6 @@ const knex = require('knex')({
     client: 'pg',
     connection: HEROKU_POSTGRESQL_COLOR_URL,
     ssl: true
-    }
   });
 
 const app = express();
