@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const knex = require('knex')({
     client: 'pg',
-    connection: HEROKU_POSTGRESQL_COLOR_URL,
+    connection: 'HEROKU_POSTGRESQL_PUCE_URL',
     ssl: true
   });
 
