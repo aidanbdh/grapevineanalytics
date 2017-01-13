@@ -23,6 +23,8 @@ document.getElementById('create-profile').addEventListener('submit', () => {
       switch(res.status) {
         case 201:
           window.alert('Profile Created!');
+          res.json()
+            .then(res => { helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`; });
           switchView('create-profile', 'home');
           break;
         case 409:

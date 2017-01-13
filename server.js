@@ -2,8 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const knex = require('knex')({
     client: 'pg',
-    connection: 'postgres://xuapadzjztxhns:5a36040cc5803628188a06fc5fafee4358fed714559c00df6ef8037833ea456e@ec2-50-17-220-223.compute-1.amazonaws.com:5432/dc39hfq2kphpm9',
-    ssl: true
+    //Testing
+    connection: { database: 'grapevineanalytics' }
+    //Implementation
+    /*connection: 'postgres://xuapadzjztxhns:5a36040cc5803628188a06fc5fafee4358fed714559c00df6ef8037833ea456e@ec2-50-17-220-223.compute-1.amazonaws.com:5432/dc39hfq2kphpm9',
+    ssl: true*/
   });
 
 const app = express();
@@ -35,16 +38,25 @@ app.post('/new_profile', (req, res) => {
   const addProfile = knex('profiles').insert(req.body);
   knex('profiles')
     .where({ email: req.body.email })
-    .returning('id')
     .then(response => {
       if(response[0]) {
         res.sendStatus(409);
       } else {
         addProfile
           .then(() => {
-            res.sendStatus(201);
-            res.send(response[0]);
-          })
+            knex('profiles')
+              .where({ email: req.body.email })
+              .then(response => {
+                knex.schema.createTable(`analytics_${response[0].id}`, table => {
+                  table.increments('id');
+                  table.string('name');
+                  table.integer('num');
+                  table.timestamps();
+                })
+                  .catch(err => { console.log(`Error creating analytics for ${req.body.email}. ${err}`) });
+                res.status(201).send(response[0]);
+              });
+            })
           .catch(err => {
             console.log(`Error: ${err}`);
             res.sendStatus(500);

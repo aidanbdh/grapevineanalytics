@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS profiles;
+DROP TABLE IF EXISTS analytics_1;
 
 CREATE TABLE profiles (
   id serial,
