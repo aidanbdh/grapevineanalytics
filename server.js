@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1' + :process.env.PORT,
+    host: '127.0.0.1',
     database: 'grapevineanalytics'
   }
 });
