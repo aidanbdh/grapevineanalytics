@@ -25,7 +25,8 @@ document.getElementById('login').addEventListener('submit', () => {
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
                 localStorage.setItem('email', res.email)
-              }
+              };
+              helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`;
             });
           switchView('login', 'home');
           break;

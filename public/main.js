@@ -21,6 +21,7 @@ const helloMessage = document.getElementById('hello-message');
 
 window.onload = function() {
   if(localStorage.getItem('email')) {
+    console.log('Hi');
     fetch('/find', {
       headers: {
         Accept: 'application/json',

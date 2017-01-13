@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
+    host: '192.168.1.214.',
     database: 'grapevineanalytics'
   }
 });
@@ -11,7 +11,6 @@ const knex = require('knex')({
 const app = express();
 
 var port = process.env.PORT || 3000;
-console.log(port);
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
