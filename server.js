@@ -9,11 +9,14 @@ const knex = require('knex')({
 
 const app = express();
 
-app.use(express.static('public'));
+var port = process.env.PORT || 3000;
+console.log(port);
+
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 app.get('/', (req, res, next) => {
-  res.send('/public');
+  res.send('index.html');
   next();
 })
 
@@ -65,6 +68,6 @@ app.post('/find', (req,res) => {
     });
 });
 
-app.listen(3000, () => {
-  console.log('listening on 3000');
+app.listen(port, () => {
+  console.log('listening on ' + port);
 });
