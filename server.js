@@ -21,48 +21,55 @@ app.get('/', (req, res, next) => {
   next();
 })
 
-app.post('/login', (req, res) => {
-  knex('profiles')
-    .where({ email: req.body.email })
-    .then(response => {
-      if(response[0]) {
-        res.status(200).send(response[0]);
-      } else {
-        res.sendStatus(409);
-      };
-    });
-});
 
-app.post('/new_profile', (req, res) => {
-  //Validate email
-  const addProfile = knex('profiles').insert(req.body);
+app.post('/account', (req, res) => {
   knex('profiles')
-    .where({ email: req.body.email })
+    .where({ email: req.body.email})
     .then(response => {
-      if(response[0]) {
-        res.sendStatus(409);
-      } else {
-        addProfile
-          .then(() => {
-            knex('profiles')
-              .where({ email: req.body.email })
-              .then(response => {
-                knex.schema.createTable(`analytics_${response[0].id}`, table => {
-                  table.increments('id');
-                  table.string('name');
-                  table.integer('num');
-                  table.timestamps();
+      switch(req.body.view) {
+        case 'create-profile':
+          delete req.body.view;
+          const addProfile = knex('profiles').insert(req.body);
+          if(response[0]) {
+            res.sendStatus(409);
+          } else {
+            addProfile
+              .then(() => {
+                knex('profiles')
+                  .where({ email: req.body.email })
+                  .then(response => {
+                    knex.schema.createTable(`analytics_${response[0].id}`, table => {
+                      table.increments('id');
+                      table.string('name');
+                      table.integer('num');
+                      table.timestamps();
+                    })
+                      .catch(err => { console.log(`Error creating analytics for ${req.body.email}. ${err}`) });
+                    res.status(201).send(response[0]);
+                  });
                 })
-                  .catch(err => { console.log(`Error creating analytics for ${req.body.email}. ${err}`) });
-                res.status(201).send(response[0]);
+              .catch(err => {
+                console.log(`Error: ${err}`);
+                res.sendStatus(500);
               });
-            })
-          .catch(err => {
-            console.log(`Error: ${err}`);
-            res.sendStatus(500);
-          });
-      };
+          };
+          break;
+        case 'login':
+          if(response[0]) {
+            res.status(200).send(response[0]);
+          } else {
+            res.sendStatus(409);
+          };
+          break;
+        default:
+          console.log('Error new view not suppored by server server.js 64');
+          break;
+      }
+    })
+    .catch(err => {
+      console.log(`Error ${err}`);
     });
+
 });
 
 app.post('/find', (req,res) => {
@@ -71,7 +78,9 @@ app.post('/find', (req,res) => {
     .then(response => {
       if(response[0]) {
         res.status(200).send(response[0]);
-      };
+      } else {
+        res.sendStatus(409);
+      }
     })
     .catch(err => {
       console.log(`Error: ${err}`);
