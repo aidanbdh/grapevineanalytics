@@ -23,7 +23,8 @@ document.getElementById('login').addEventListener('submit', () => {
         case 200:
           res.json()
             .then(res => {
-              helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`;
+              helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
+              views.textContent = `Views: ${res.analytics[0].num}`
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
                 localStorage.setItem('email', res.email)
@@ -63,7 +64,10 @@ document.getElementById('create-profile').addEventListener('submit', () => {
         case 201:
           window.alert('Profile Created!');
           res.json()
-            .then(res => { helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`; });
+            .then(res => {
+              helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
+              views.textContent = `Views: ${res.analytics[0].num}`;
+            });
           switchView('home');
           break;
         case 409:

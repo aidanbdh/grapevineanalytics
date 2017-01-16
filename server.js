@@ -24,7 +24,7 @@ app.get('/', (req, res, next) => {
 
 app.post('/account', (req, res) => {
   knex('profiles')
-    .where({ email: req.body.email})
+    .where({ email: req.body.email })
     .then(response => {
       switch(req.body.view) {
         case 'create-profile':
@@ -42,11 +42,15 @@ app.post('/account', (req, res) => {
                       table.increments('id');
                       table.string('name');
                       table.integer('num');
-                      table.timestamps();
-                    })
+                      //table.timestamps();
+                      })
+                      .then(() => { knex(`analytics_${response[0].id}`).insert({ name: 'views', num: 0 }).then() })
                       .catch(err => { console.log(`Error creating analytics for ${req.body.email}. ${err}`) });
-                    res.status(201).send(response[0]);
-                  });
+                    knex(`analytics_${response[0].id}`)
+                      .then(responseA => {
+                        res.status(201).send({profile: response[0], analytics: responseA});
+                      })
+                  })
                 })
               .catch(err => {
                 console.log(`Error: ${err}`);
@@ -56,7 +60,10 @@ app.post('/account', (req, res) => {
           break;
         case 'login':
           if(response[0]) {
-            res.status(200).send(response[0]);
+            knex(`analytics_${response[0].id}`)
+              .then(responseA => {
+                res.status(200).send({profile: response[0], analytics: responseA});
+              })
           } else {
             res.sendStatus(409);
           };
@@ -69,7 +76,6 @@ app.post('/account', (req, res) => {
     .catch(err => {
       console.log(`Error ${err}`);
     });
-
 });
 
 app.post('/find', (req,res) => {
@@ -77,7 +83,10 @@ app.post('/find', (req,res) => {
     .where(req.body)
     .then(response => {
       if(response[0]) {
-        res.status(200).send(response[0]);
+        knex(`analytics_${response[0].id}`)
+          .then(responseA => {
+            res.status(200).send({profile: response[0], analytics: responseA});
+          })
       } else {
         res.sendStatus(409);
       }
@@ -85,6 +94,19 @@ app.post('/find', (req,res) => {
     .catch(err => {
       console.log(`Error: ${err}`);
     });
+});
+
+app.post('/data', (req,res) => {
+  knex('profiles')
+    .where({ email: req.body.email })
+    .select('id')
+    .then(response => {
+      knex(`analytics_${response[0].id}`)
+        .where('name', req.body.name)
+        .increment('num', 1)
+        .then(() => { res.sendStatus(201) })
+        .catch(err => { console.log(err) })
+      })
 });
 
 app.listen(port, () => {

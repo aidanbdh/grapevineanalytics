@@ -21,6 +21,7 @@ logout.addEventListener('click', () => {
 
 let user;
 const helloMessage = document.getElementById('hello-message');
+const views = document.getElementById('views');
 
 window.onload = function() {
   if(localStorage.getItem('email')) {
@@ -35,7 +36,8 @@ window.onload = function() {
       .then(res => {
         res.json()
           .then(res => {
-            helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`
+            helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
+            views.textContent = `Views: ${res.analytics[0].num}`
             switchView('home');
           });
       });
