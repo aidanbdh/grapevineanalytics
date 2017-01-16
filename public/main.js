@@ -1,23 +1,27 @@
-function switchView(view1, view2) {
-  document.getElementById('container-' + view1).style.display = 'none';
-  document.getElementById('container-' + view2).style.display = 'block';
+let view = 'login';
+
+function switchView(newView) {
+  document.getElementById('container-' + view).style.display = 'none';
+  document.getElementById('container-' + newView).style.display = 'block';
+  view = newView;
 };
 
 const createAccount = document.getElementById('create-account');
 
 createAccount.addEventListener('click', () => {
-  switchView('login', 'create-profile');
+  switchView('create-profile');
 });
 
 const logout = document.getElementById('logout');
 
 logout.addEventListener('click', () => {
-  switchView('home', 'login');
+  switchView('login');
   if(localStorage.getItem('email')) localStorage.removeItem('email');
 });
 
 let user;
 const helloMessage = document.getElementById('hello-message');
+const views = document.getElementById('views');
 
 window.onload = function() {
   if(localStorage.getItem('email')) {
@@ -32,9 +36,9 @@ window.onload = function() {
       .then(res => {
         res.json()
           .then(res => {
-            user = res;
-            helloMessage.textContent = `Hi ${res.first_name} ${res.last_name}!`
-            switchView('login', 'home');
+            helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
+            views.textContent = `Views: ${res.analytics[0].num}`
+            switchView('home');
           });
       });
   }
