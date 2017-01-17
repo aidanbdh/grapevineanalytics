@@ -1,8 +1,8 @@
 const analyticsEmail = 'aidanbdh1998@gmail.com';
 
 window.addEventListener('load', function() {
-  //Implementation: https://grapevine-analytics.herokuapp.com/data
-  fetch('http://localhost:3000/data', {
+  //Test: 'http://localhost:3000/data'
+  fetch('https://grapevine-analytics.herokuapp.com/data', {
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json'
