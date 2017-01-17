@@ -73,7 +73,7 @@ document.getElementById('create-profile').addEventListener('submit', () => {
           switchView('home');
           break;
         case 409:
-          window.alert('That email is already in use. Please try again.');
+          window.alert('That email or url is already in use. Please try again.');
           break;
         case 500:
           window.alert('The server is offline. Please try again later.');
