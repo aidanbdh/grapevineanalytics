@@ -27,7 +27,7 @@ document.getElementById('login').addEventListener('submit', () => {
               views.textContent = `Views: ${res.analytics[0].num}`
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
-                localStorage.setItem('email', res.email)
+                localStorage.setItem('email', res.profile.email)
               };
             });
           switchView('home');
