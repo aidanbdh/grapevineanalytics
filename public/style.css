@@ -20,8 +20,7 @@ form {
   display: block;
 }
 
-#email,
-#login-email {
+.long {
   width: 75%;
 }
 

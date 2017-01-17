@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const knex = require('knex')({
     client: 'pg',
     //Testing
-    //connection: { database: 'grapevineanalytics' }
+    connection: { database: 'grapevineanalytics' }
     //Implementation
-    connection: process.env.DATABASE_URL,
-    ssl: true
+    //connection: process.env.DATABASE_URL,
+    //ssl: true
   });
 
 const app = express();
@@ -109,6 +109,10 @@ app.post('/data', (req,res) => {
       })
       .catch(() => res.sendStatus(401));
 });
+
+app.get('/data', (req, res) => {
+  console.log(req);
+})
 
 app.listen(port, () => {
   console.log('listening on ' + port);

@@ -7,10 +7,11 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <script src="analytics.js"></script>
+    <img src="http://localhost:3000/data">
+    <!--<img src="https://grapevine-analytics.herokuapp.com/data">-->
     <div class="container" id="container-login">
       <form id="login">
-        <div><label>Email: <input type="email" name="email" id="login-email" required></label></div>
+        <div><label>Email: <input type="email" name="email" class="long" required></label></div>
         <div><button type="submit">Login</button><a href="#" id="create-account">Create new account</a></div>
       </form>
     </div>
@@ -21,7 +22,10 @@
             <label>Last Name: <input type="text" name="last-name" maxlength="16" required></label>
           </div>
           <div>
-            <label>Email: <input type="email" name="email" id="email" required></label>
+            <label>Email: <input type="email" name="email" class="long" required></label>
+          </div>
+          <div>
+            <label>Website url: <input type="url" name="url" class="long" required></label>
           </div>
           <div>
             <button type="submit">Create</button>

@@ -41,11 +41,13 @@ const form = document.querySelectorAll('#create-profile input');
 const firstName= form[0];
 const lastName = form[1];
 const email = form[2];
+const url = form[3];
 
 function CreateProfile() {
   this.first_name = firstName.value;
   this.last_name = lastName.value;
   this.email = email.value;
+  this.url = url.value;
   this.view = view;
 };
 
