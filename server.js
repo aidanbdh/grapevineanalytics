@@ -107,6 +107,7 @@ app.post('/data', (req,res) => {
         .then(() => { res.sendStatus(201) })
         .catch(err => { console.log(err) })
       })
+      .catch()res.sendStatus(401);
 });
 
 app.listen(port, () => {
