@@ -41,11 +41,13 @@ const form = document.querySelectorAll('#create-profile input');
 const firstName= form[0];
 const lastName = form[1];
 const email = form[2];
+const url = form[3];
 
 function CreateProfile() {
   this.first_name = firstName.value;
   this.last_name = lastName.value;
   this.email = email.value;
+  this.url = url.value;
   this.view = view;
 };
 
@@ -71,7 +73,7 @@ document.getElementById('create-profile').addEventListener('submit', () => {
           switchView('home');
           break;
         case 409:
-          window.alert('That email is already in use. Please try again.');
+          window.alert('That email or url is already in use. Please try again.');
           break;
         case 500:
           window.alert('The server is offline. Please try again later.');
