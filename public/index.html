@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <!--<img src="http://localhost:3000/data.gif" style="display: none">-->
-    <img src="https://grapevine-analytics.herokuapp.com/data.gif" style="display: none">
+    <img src="http://localhost:3000/data.gif" style="display: none">
+    <!--<img src="https://grapevine-analytics.herokuapp.com/data.gif" style="display: none">-->
     <div class="container" id="container-login">
       <form id="login">
         <div><label>Email: <input type="email" name="email" class="long" id="login-email" required></label></div>
@@ -40,9 +40,12 @@
           <p><a href="#" id="logout">Logout</a></p>
         </span>
       </div>
-      <p id="views">Views: 0</p>
+      <!--<svg class="chart"></svg>-->
+      <h3>Views</h3>
+      <div id="charts"></div>
+      <p id="views">Total Views: 0</p>
     </div>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="moment.js"></script>
     <script src="graphs.js"></script>
     <script src="main.js"></script>
     <script src="account.js"></script>

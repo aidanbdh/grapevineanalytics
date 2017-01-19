@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const moment = require('moment');
 const knex = require('knex')({
     client: 'pg',
     //Testing
-    //connection: { database: 'grapevineanalytics' }
+    connection: { database: 'grapevineanalytics' }
     //Implementation
-    connection: process.env.DATABASE_URL,
-    ssl: true
+    //connection: process.env.DATABASE_URL,
+    //ssl: true
   });
 
 const app = express();
@@ -129,7 +130,7 @@ app.post('/analytics', (req, res) => {
           knex.schema.createTable(`analytics_${response[0].id}_${resp[0]}`, table => {
             table.increments('id');
             table.string('cookie');
-            table.timestamp('time');
+            table.string('time');
           })
           .then(response => res.sendStatus(201))
           .catch(err => console.log(err));
@@ -148,14 +149,14 @@ app.get('/data.gif', (req, res) => {
         .returning('id')
         .then(resp => {
           knex(`analytics_${response[0].id}_${resp[0].id}`)
-            .insert({ cookie: null, time: Date.now() })
+            .insert({ cookie: null, time: `${moment().dayOfYear()}-${moment().month() + 1}-${moment().year()}` })
             .then(() => {
               res.header('content-type', 'image/gif');
               res.send('GIF89a\u0001\u0000\u0001\u0000\u00A1\u0001\u0000\u0000\u0000\u0000\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u0021\u00F9\u0004\u0001\u000A\u0000\u0001\u0000\u002C\u0000\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0002\u0002\u004C\u0001\u0000;');
             })
             .catch(err => console.log(err));
         })
-        .catch(() => res.sendStatus(500));
+        .catch(err => console.log(err));
       })
       .catch(() => res.sendStatus(401));
 });

@@ -33,3 +33,41 @@ form {
   display: inline-block;
   float: right;
 }
+
+.graph {
+  transform: rotate(180deg);
+  margin: auto;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-color: black;
+  height: 320px;
+  width: 480px;
+  padding-top: -500px;
+}
+
+.bar {
+  transform: rotate(180deg);
+  display: inline-block;
+  margin-left: 7px;
+  background-color: lightblue;
+  text-align: center;
+  color: black;
+}
+
+.bar span {
+  position: relative;
+  top: -18px;
+}
+
+.tic {
+  position: relative;
+  bottom: 332px;
+  transform: rotate(180deg);
+  display: inline-block;
+  margin-left: 7px;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}

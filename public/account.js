@@ -24,7 +24,8 @@ document.getElementById('login').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              views.textContent = `Views: ${res.data.length + 1}`;
+              views.textContent = `Total Views: ${res.data.length + 1}`;
+              graph(res.data, 'views');
               user = res.profile.email;
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
@@ -70,6 +71,7 @@ document.getElementById('create-profile').addEventListener('submit', () => {
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
               views.textContent = `Views: 0`;
+              graph(res.data, 'views');
               user = res.profile.email;
               console.log(user);
             });
