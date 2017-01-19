@@ -37,8 +37,8 @@ window.onload = function() {
         res.json()
           .then(res => {
             helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
-            console.log(res);
-            views.textContent = `Views: ${res.views}`
+            views.textContent = `Views: ${res.data.length + 1}`
+            graph('Time', 'Views', res.data, 'views');
             switchView('home');
             user = res.profile.email;
           });

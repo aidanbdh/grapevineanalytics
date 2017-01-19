@@ -24,8 +24,7 @@ document.getElementById('login').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              console.log(res);
-              views.textContent = `Views: ${res.views}`;
+              views.textContent = `Views: ${res.data.length + 1}`;
               user = res.profile.email;
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
