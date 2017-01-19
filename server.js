@@ -4,10 +4,10 @@ const moment = require('moment');
 const knex = require('knex')({
     client: 'pg',
     //Testing
-    connection: { database: 'grapevineanalytics' }
+    //connection: { database: 'grapevineanalytics' }
     //Implementation
-    //connection: process.env.DATABASE_URL,
-    //ssl: true
+    connection: process.env.DATABASE_URL,
+    ssl: true
   });
 
 const app = express();
