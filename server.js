@@ -46,7 +46,7 @@ app.post('/account', (req, res) => {
               req.body.url = req.body.url.slice(8);
             }
             if(req.body.url.endsWith('/')) {
-              req.body.url.slice(0, req.body.url.length);
+              req.body.url.slice(0, req.body.url.length-1);
             }
             const addProfile = knex('profiles').insert(req.body);
             if(response[0]) {
