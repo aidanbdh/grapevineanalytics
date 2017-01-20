@@ -61,9 +61,9 @@ function graph(data, type, start) {
   for (let i = numBars; i < numBars + numTics; i++) {
     $bar[i].setAttribute('class', 'tic');
     $bar[i].style = `width: ${(480 - 7 * days.length) / days.length}px !important`
-    endDay.subtract(1, 'days');
     const $ticSpan = document.createElement('span');
     const $ticText = document.createTextNode(`${endDay.month() + 1}/${endDay.date()}`);
+    endDay.subtract(1, 'days');
     $ticSpan.appendChild($ticText)
     $bar[i].appendChild($ticSpan)
   }
