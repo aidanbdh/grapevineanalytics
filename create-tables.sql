@@ -12,4 +12,4 @@ CREATE TABLE profiles (
   last_name varchar,
   email varchar,
   url varchar
-)
+);

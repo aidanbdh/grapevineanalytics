@@ -144,6 +144,7 @@ app.get('/data.gif', (req, res) => {
       .where({ url: req.get('host') })
       .select('id')
       .then(response => {
+        console.log(req.get('host'));
         knex(`analytics_${response[0].id}`)
           .where('name', 'views')
           .returning('id')
