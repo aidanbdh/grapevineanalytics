@@ -3,6 +3,19 @@
   display: none;
 }
 
+#container-landing {
+  background-image: url('https://s-media-cache-ak0.pinimg.com/736x/b7/1d/d1/b71dd1f4a388bc9cd2772d630bf78a4f.jpg');
+  background-size: cover;
+  display: block;
+}
+
+#title {
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  background-color: rgba(0,0,0,.5);
+}
+
 form {
   margin-top: 50%;
   transform: translateY(-100%);
@@ -14,10 +27,6 @@ form {
   margin: auto;
   margin-top: 18px;
   text-align: center;
-}
-
-#container-login {
-  display: block;
 }
 
 .long {
