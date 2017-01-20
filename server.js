@@ -40,6 +40,12 @@ app.post('/account', (req, res) => {
               res.sendStatus(500);
             })
             delete req.body.view;
+            if(req.body.url.indexOf('http://') !== -1) {
+              req.body.url = req.body.url.slice(7);
+            } else if (req.body.url.indexOf('https://') !== -1) {
+              req.body.url = req.body.url.slice(8);
+            }
+            ]
             const addProfile = knex('profiles').insert(req.body);
             if(response[0]) {
               res.sendStatus(409);
