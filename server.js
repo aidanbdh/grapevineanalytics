@@ -45,6 +45,9 @@ app.post('/account', (req, res) => {
             } else if (req.body.url.indexOf('https://') !== -1) {
               req.body.url = req.body.url.slice(8);
             }
+            if(req.body.url.endsWith('/')) {
+              req.body.url.slice(0, req.body.url.length);
+            }
             const addProfile = knex('profiles').insert(req.body);
             if(response[0]) {
               res.sendStatus(409);
