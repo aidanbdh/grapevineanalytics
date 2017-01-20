@@ -4,10 +4,10 @@ const moment = require('moment');
 const knex = require('knex')({
     client: 'pg',
     //Testing
-    //connection: { database: 'grapevineanalytics' }
+    connection: { database: 'grapevineanalytics' }
     //Implementation
-    connection: process.env.DATABASE_URL,
-    ssl: true
+    //connection: process.env.DATABASE_URL,
+    //ssl: true
   });
 
 const app = express();
@@ -140,25 +140,26 @@ app.post('/analytics', (req, res) => {
 })
 
 app.get('/data.gif', (req, res) => {
-  knex('profiles')
-    .where({ url: req.get('host') })
-    .select('id')
-    .then(response => {
-      knex(`analytics_${response[0].id}`)
-        .where('name', 'views')
-        .returning('id')
-        .then(resp => {
-          knex(`analytics_${response[0].id}_${resp[0].id}`)
-            .insert({ cookie: null, time: `${moment().dayOfYear()}-${moment().month() + 1}-${moment().year()}` })
-            .then(() => {
-              res.header('content-type', 'image/gif');
-              res.send('GIF89a\u0001\u0000\u0001\u0000\u00A1\u0001\u0000\u0000\u0000\u0000\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u0021\u00F9\u0004\u0001\u000A\u0000\u0001\u0000\u002C\u0000\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0002\u0002\u004C\u0001\u0000;');
-            })
-            .catch(err => console.log(err));
+    knex('profiles')
+      .where({ url: req.get('host') })
+      .select('id')
+      .then(response => {
+        knex(`analytics_${response[0].id}`)
+          .where('name', 'views')
+          .returning('id')
+          .then(resp => {
+            knex(`analytics_${response[0].id}_${resp[0].id}`)
+              .where('cookie' , req.ip)
+              .insert({ cookie: req.ip, time: `${moment().dayOfYear()}-${moment().month() + 1}-${moment().year()}` })
+              .then(() => {
+                res.header('content-type', 'image/gif');
+                res.send('GIF89a\u0001\u0000\u0001\u0000\u00A1\u0001\u0000\u0000\u0000\u0000\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u00FF\u0021\u00F9\u0004\u0001\u000A\u0000\u0001\u0000\u002C\u0000\u0000\u0000\u0000\u0001\u0000\u0001\u0000\u0000\u0002\u0002\u004C\u0001\u0000;');
+              })
+              .catch(err => res.sendStatus(400));
+          })
+          .catch(err => console.log(err));
         })
-        .catch(err => console.log(err));
-      })
-      .catch(() => res.sendStatus(401));
+        .catch(() => res.sendStatus(401));
 });
 
 app.listen(port, () => {

@@ -25,7 +25,7 @@ document.getElementById('login').addEventListener('submit', () => {
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
               views.textContent = `Total Views: ${res.data.length + 1}`;
-              graph(res.data, 'views');
+              graph(res.data, 'views', 0);
               user = res.profile.email;
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
@@ -71,9 +71,8 @@ document.getElementById('create-profile').addEventListener('submit', () => {
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
               views.textContent = `Views: 0`;
-              graph(res.data, 'views');
+              graph(res.data, 'views', 0);
               user = res.profile.email;
-              console.log(user);
             });
           switchView('home');
           break;

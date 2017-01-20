@@ -1,6 +1,7 @@
 .container {
   height: 100vh;
   display: none;
+  min-width: 480px;
 }
 
 #container-landing {
@@ -60,6 +61,13 @@ form {
   float: right;
 }
 
+#next,
+#previous {
+  display: inline-block;
+  margin-right: 48px;
+  margin-left: 48px;
+}
+
 .graph {
   transform: rotate(180deg);
   margin: auto;
@@ -96,4 +104,9 @@ form {
 
 h3 {
   text-align: center;
+}
+
+#views {
+  position: relative;
+  top: 16px;
 }
