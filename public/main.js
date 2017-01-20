@@ -1,4 +1,5 @@
 let view = 'login';
+let user = '';
 
 function switchView(newView) {
   document.getElementById('container-' + view).style.display = 'none';
@@ -39,6 +40,7 @@ window.onload = function() {
             helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
             views.textContent = `Views: ${res.analytics[0].num}`
             switchView('home');
+            user = res.profile.email;
           });
       });
   }

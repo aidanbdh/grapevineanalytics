@@ -19,8 +19,7 @@ app.use(bodyParser.json());
 app.get('/', (req, res, next) => {
   res.send('index.html');
   next();
-})
-
+});
 
 app.post('/account', (req, res) => {
   knex('profiles')
@@ -50,7 +49,6 @@ app.post('/account', (req, res) => {
                         table.increments('id');
                         table.string('name');
                         table.integer('num');
-                        //table.timestamps();
                         })
                         .then(() => { knex(`analytics_${response[0].id}`).insert({ name: 'views', num: 0 }).then() })
                         .catch(err => { console.log(`Error creating analytics for ${req.body.email}. ${err}`) });
@@ -86,7 +84,7 @@ app.post('/account', (req, res) => {
     });
 });
 
-app.post('/find', (req,res) => {
+app.post('/find', (req, res) => {
   knex('profiles')
     .where(req.body)
     .then(response => {
@@ -103,6 +101,20 @@ app.post('/find', (req,res) => {
       console.log(`Error: ${err}`);
     });
 });
+
+app.post('/analytics', (req, res) => {
+  knex('profiles')
+    .where(req.user)
+    .returning('id')
+    .then((response) => {
+      knex(`analytics_${response[0].id}`)
+        .insert({ name: req.name })
+        .returning('id')
+        .then((resp) => {
+          knex.schema.createTable(`analytics_${response[0].id}.${resp[0].id}`)
+        })
+    })
+})
 
 app.get('/data.gif', (req, res) => {
   knex('profiles')

@@ -24,10 +24,11 @@ document.getElementById('login').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              views.textContent = `Views: ${res.analytics[0].num}`
+              views.textContent = `Views: ${res.analytics[0].num}`;
+              user = res.profile.email;
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
-                localStorage.setItem('email', res.profile.email)
+                localStorage.setItem('email', res.profile.email);
               };
             });
           switchView('home');
@@ -69,6 +70,7 @@ document.getElementById('create-profile').addEventListener('submit', () => {
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
               views.textContent = `Views: ${res.analytics[0].num}`;
+              user = res.profile.email;
             });
           switchView('home');
           break;
