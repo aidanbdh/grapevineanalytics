@@ -7,13 +7,14 @@
     <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-    <img src="http://localhost:3000/data.gif" style="display: none">
-    <!--<img src="https://grapevine-analytics.herokuapp.com/data.gif" style="display: none">-->
+    <!--<img src="http://localhost:3000/data.gif" style="display: none">-->
+    <img src="https://grapevine-analytics.herokuapp.com/data.gif" style="display: none">
     <div class="container" id="container-landing">
       <div id="title">
         <h2>Grapevine Analytics</h2>
         <h4>A website for website owners who want to view user traffic information</h4>
-        <button>Get Started!</button>
+        <button id="start">Get Started!</button>
+        <p><a href="#" id="already-user">Already a user?</a></p>
       </div>
     </div>
     <div class="container" id="container-login">
@@ -52,7 +53,7 @@
       <div id="charts"></div>
       <p id="views">Total Views: 0</p>
     </div>
-    <script src="moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
     <script src="graphs.js"></script>
     <script src="main.js"></script>
     <script src="account.js"></script>

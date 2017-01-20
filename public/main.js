@@ -1,4 +1,4 @@
-let view = 'login';
+let view = 'landing';
 let user = '';
 
 function switchView(newView) {
@@ -6,6 +6,19 @@ function switchView(newView) {
   document.getElementById('container-' + newView).style.display = 'block';
   view = newView;
 };
+
+const $start = document.getElementById('start');
+
+$start.addEventListener('click', () => {
+  switchView('create-profile');
+});
+
+
+const $alreadyUser = document.getElementById('already-user');
+
+$alreadyUser.addEventListener('click', () => {
+  switchView('login');
+});
 
 const createAccount = document.getElementById('create-account');
 
@@ -23,25 +36,23 @@ logout.addEventListener('click', () => {
 const helloMessage = document.getElementById('hello-message');
 const views = document.getElementById('views');
 
-window.onload = function() {
-  if(localStorage.getItem('email')) {
-    fetch('/find', {
-      headers: {
-        Accept: 'application/json',
-        'Content-type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({ email: localStorage.getItem('email') })
-    })
-      .then(res => {
-        res.json()
-          .then(res => {
-            helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
-            views.textContent = `Total Views: ${res.data.length + 1}`
-            graph(res.data, 'views');
-            switchView('home');
-            user = res.profile.email;
-          });
-      });
-  }
+if(localStorage.getItem('email')) {
+  fetch('/find', {
+    headers: {
+      Accept: 'application/json',
+      'Content-type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({ email: localStorage.getItem('email') })
+  })
+    .then(res => {
+      res.json()
+        .then(res => {
+          helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
+          views.textContent = `Total Views: ${res.data.length + 1}`
+          graph(res.data, 'views');
+          switchView('home');
+          user = res.profile.email;
+        });
+    });
 }
