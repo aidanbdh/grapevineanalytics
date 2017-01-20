@@ -1,6 +1,37 @@
 .container {
-  height: 100%;
+  height: 100vh;
   display: none;
+  min-width: 480px;
+}
+
+#container-landing {
+  background-image: url('https://s-media-cache-ak0.pinimg.com/736x/b7/1d/d1/b71dd1f4a388bc9cd2772d630bf78a4f.jpg');
+  background-size: cover;
+  display: block;
+}
+
+#title {
+  position: relative;
+  top: 50vh;
+  transform: translateY(-50%);
+  padding: 24px;
+  text-align: center;
+  color: white;
+  font-weight: normal;
+  background-color: rgba(0,0,0,.5);
+}
+
+#title h2 {
+  font-size: 48px;
+}
+
+#title button {
+  padding: 8px;
+  font-size: 20px;
+}
+
+#title a {
+  color: white;
 }
 
 form {
@@ -16,10 +47,6 @@ form {
   text-align: center;
 }
 
-#container-login {
-  display: block;
-}
-
 .long {
   width: 75%;
 }
@@ -32,6 +59,13 @@ form {
 #header span {
   display: inline-block;
   float: right;
+}
+
+#next,
+#previous {
+  display: inline-block;
+  margin-right: 48px;
+  margin-left: 48px;
 }
 
 .graph {
@@ -70,4 +104,9 @@ form {
 
 h3 {
   text-align: center;
+}
+
+#views {
+  position: relative;
+  top: 16px;
 }

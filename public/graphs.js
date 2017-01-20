@@ -1,8 +1,8 @@
 moment().format();
 
-function graph(data, type) {
-  const today = moment().dayOfYear();
-  const endDay = moment(today - 1, 'DDD').endOf('day');
+function graph(data, type, start) {
+  const today = moment().add(start + viewDay, 'days').dayOfYear();
+  const endDay = moment(today, 'DDD').endOf('day');
   const startDay = endDay.dayOfYear() - 6;
   let dayData = data.filter(function(value) {
     return moment(value.time, 'DD-MM-YYYY').dayOfYear() > startDay && moment(value.time, 'DD-MM-YYYY').dayOfYear() < endDay.dayOfYear();
@@ -42,7 +42,7 @@ function graph(data, type) {
   const $charts = document.getElementById('charts');
   const $chartsDiv = document.createElement('div');
   $charts.appendChild($chartsDiv);
-  $chartsDiv.setAttribute('class', 'graph')
+  $chartsDiv.setAttribute('class', 'graph');
   let $graph = document.querySelectorAll('.graph')[0]
   for (let i = 0; i < numBars + numTics; i++) {
     const $graphDiv = document.createElement('div');
@@ -61,10 +61,11 @@ function graph(data, type) {
   for (let i = numBars; i < numBars + numTics; i++) {
     $bar[i].setAttribute('class', 'tic');
     $bar[i].style = `width: ${(480 - 7 * days.length) / days.length}px !important`
-    endDay.subtract(1, 'days')
+    endDay.subtract(1, 'days');
     const $ticSpan = document.createElement('span');
     const $ticText = document.createTextNode(`${endDay.month() + 1}/${endDay.date()}`);
     $ticSpan.appendChild($ticText)
     $bar[i].appendChild($ticSpan)
   }
+  viewDay += start;
 }
