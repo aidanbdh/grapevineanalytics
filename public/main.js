@@ -20,7 +20,6 @@ logout.addEventListener('click', () => {
   if(localStorage.getItem('email')) localStorage.removeItem('email');
 });
 
-let user;
 const helloMessage = document.getElementById('hello-message');
 const views = document.getElementById('views');
 
@@ -38,7 +37,8 @@ window.onload = function() {
         res.json()
           .then(res => {
             helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
-            views.textContent = `Views: ${res.analytics[0].num}`
+            views.textContent = `Total Views: ${res.data.length + 1}`
+            graph(res.data, 'views');
             switchView('home');
             user = res.profile.email;
           });

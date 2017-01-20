@@ -24,7 +24,8 @@ document.getElementById('login').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              views.textContent = `Views: ${res.analytics[0].num}`;
+              views.textContent = `Total Views: ${res.data.length + 1}`;
+              graph(res.data, 'views');
               user = res.profile.email;
               let rememberMe = confirm('Would you like to stay logged in?');
               if(rememberMe) {
@@ -69,8 +70,10 @@ document.getElementById('create-profile').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              views.textContent = `Views: ${res.analytics[0].num}`;
+              views.textContent = `Views: 0`;
+              graph(res.data, 'views');
               user = res.profile.email;
+              console.log(user);
             });
           switchView('home');
           break;
@@ -84,6 +87,16 @@ document.getElementById('create-profile').addEventListener('submit', () => {
           console.log('Unsupported Status Code.');
           break;
       };
+      fetch('/analytics', {
+        headers: {
+          Accept: 'application/json',
+          'Content-type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({user: email.value, name: 'views'})
+      })
+        .then()
+        .catch(err => console.log('Error'));
     })
     .catch(err => { window.alert('Error creating profile!') });
 }, true);
