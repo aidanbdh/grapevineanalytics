@@ -49,7 +49,7 @@ if(localStorage.getItem('email')) {
       res.json()
         .then(res => {
           helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
-          views.textContent = `Total Views: ${res.data.length + 1}`
+          views.textContent = `Total Views: ${res.data.length}`
           graph(res.data, 'views', 0);
           switchView('home');
           user = res.profile.email;
