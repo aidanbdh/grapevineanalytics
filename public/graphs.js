@@ -1,8 +1,62 @@
 moment().format();
 
-//Changing graph to accept variable scales
+function newGraph(data, type) {
+  data.map(value => {
+    return value.time = moment(value.time, 'DD-MM-YYYY');
+  })
+  let range = data[0].time.to(data[data.length-1].time, true);
+  range = range.split(' ');
+  range[0] = 'a' ? 1 : range[0];
+  range = moment().subtract(range[0], range[1]);
+  data = data.filter(value => {
+    return value.time > range;
+  })
+  const dataArr = [];
+  const now = moment();
+  let i = data.length-1;
+  while(data[i]) {
+    let j = i;
+    let day = [];
+    now.subtract(1, 'day')
+    while(data[j] && data[j].time > now) {
+      day.push(data[j]);
+      j--;
+    }
+    i = j;
+    dataArr.push(day);
+  };
+  return {
+    type,
+    data: dataArr,
+    range
+    }
+}
 
-function graph(data, type, start) {
+function drawGraph(graph, start) {
+  const now = moment();
+  switch(graph.type) {
+    case 'day':
+
+      break;
+    case 'week':
+
+      break;
+    case 'month':
+
+      break;
+    case 'year':
+
+      break;
+    case 'decade':
+
+      break;
+    default:
+
+      break;
+  }
+}
+
+/*
   const today = moment().add(start + viewDay, 'timeScale').dayOfYear();
   const endDay = moment(today, 'DDD').endOf('day');
   const startDay = endDay.dayOfYear() - 6;
@@ -70,4 +124,28 @@ function graph(data, type, start) {
     $bar[i].appendChild($ticSpan)
   }
   viewDay += start;
+}
+*/
+function drawGraph(graph, start) {
+  const now = moment();
+  switch(graph.type) {
+    case 'day':
+
+      break;
+    case 'week':
+
+      break;
+    case 'month':
+
+      break;
+    case 'year':
+
+      break;
+    case 'decade':
+
+      break;
+    default:
+
+      break;
+  }
 }
