@@ -1,10 +1,11 @@
 .container {
-  height: 100vh;
+  min-height: 100%;
   display: none;
   min-width: 480px;
 }
 
 #container-landing {
+  height: 100vh;
   background-image: url('https://s-media-cache-ak0.pinimg.com/736x/b7/1d/d1/b71dd1f4a388bc9cd2772d630bf78a4f.jpg');
   background-size: cover;
   display: block;
@@ -36,7 +37,7 @@
 
 form {
   margin-top: 50%;
-  transform: translateY(-100%);
+  transform: translateY(-50%);
 }
 
 #create-profile div,
@@ -45,6 +46,10 @@ form {
   margin: auto;
   margin-top: 18px;
   text-align: center;
+}
+
+#create-profile div label {
+  width: 211px;
 }
 
 .long {
