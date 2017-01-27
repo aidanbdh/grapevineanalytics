@@ -36,8 +36,9 @@
 }
 
 form {
-  margin-top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  top: 50vh;
+  transform: translateY(-100%);
 }
 
 #create-profile div,
