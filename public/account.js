@@ -2,12 +2,11 @@ const loginEmail = document.getElementById('login-email');
 
 function Login(){
   this.email = loginEmail.value;
-  this.view = view;
 }
 
 document.getElementById('login').addEventListener('submit', () => {
   event.preventDefault();
-  fetch('/account', {
+  fetch('/login', {
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json'
@@ -50,12 +49,11 @@ function CreateProfile() {
   this.last_name = lastName.value;
   this.email = email.value;
   this.url = url.value;
-  this.view = view;
 };
 
 document.getElementById('create-profile').addEventListener('submit', () => {
   event.preventDefault();
-  fetch('/account', {
+  fetch('/newAccount', {
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json'
@@ -70,11 +68,11 @@ document.getElementById('create-profile').addEventListener('submit', () => {
           res.json()
             .then(res => {
               helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`;
-              views.textContent = `Views: 0`;
-              graph(res.data, 'views', 0);
               user = res.profile.email;
-            });
-          switchView('home');
+            })
+            views.textContent = `Views: 0`;
+            graph([], 'views', 0)
+            switchView('home')
           break;
         case 409:
           window.alert('That email or url is already in use. Please try again.');
@@ -85,17 +83,5 @@ document.getElementById('create-profile').addEventListener('submit', () => {
         default:
           console.log('Unsupported Status Code.');
           break;
-      };
-      fetch('/analytics', {
-        headers: {
-          Accept: 'application/json',
-          'Content-type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({user: email.value, name: 'views'})
-      })
-        .then()
-        .catch(err => console.log('Error'));
-    })
-    .catch(err => { window.alert('Error creating profile!') });
+      }
 }, true);
