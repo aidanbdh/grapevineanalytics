@@ -33,10 +33,12 @@ app.post('/newAccount', (req, res) => {
       if(req.body.url.endsWith('/')) {
         req.body.url = req.body.url.slice(0, req.body.url.length-1);
       }
-      response[0]
-        ? knex('profiles').insert(req.body)
-          res.sendStatus(201)
-        : res.sendStatus(409)
+      if(response[0]) {
+        knex('profiles').insert(req.body)
+        res.sendStatus(201)
+      } else {
+        res.sendStatus(409)
+      }
     })
     .catch(() => { res.sendStatus(500) })
 })
