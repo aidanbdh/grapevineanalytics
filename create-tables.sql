@@ -1,10 +1,5 @@
 DROP TABLE IF EXISTS profiles;
-DROP TABLE IF EXISTS analytics_1;
-DROP TABLE IF EXISTS analytics_1_1;
-DROP TABLE IF EXISTS analytics_1_2;
-DROP TABLE IF EXISTS analytics_1_3;
-DROP TABLE IF EXISTS analytics_2;
-DROP TABLE IF EXISTS analytics_3;
+DROP TABLE IF EXISTS analytics;
 
 CREATE TABLE profiles (
   id serial,
@@ -13,3 +8,10 @@ CREATE TABLE profiles (
   email varchar,
   url varchar
 );
+
+CREATE TABLE analytics (
+  id serial,
+  cookie varchar,
+  time varchar,
+  user int references profiles(id)
+)

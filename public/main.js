@@ -50,7 +50,7 @@ if(localStorage.getItem('email')) {
         .then(res => {
           helloMessage.textContent = `Hi ${res.profile.first_name} ${res.profile.last_name}!`
           views.textContent = `Total Views: ${res.data.length}`
-          graph(res.data, 'views', 0);
+          console.log(new newGraph(res.data, 'day'))
           switchView('home');
           user = res.profile.email;
         });
@@ -76,7 +76,9 @@ $next.addEventListener('click', () => {
     .then(res => {
       res.json()
         .then(res => {
-          graph(res.data, 'views', 1);
+          drawGraph(res.data, 1);
+          console.log(res.data);
+          console.log(new newGraph(res.data, 'day'))
         });
     });
 });
